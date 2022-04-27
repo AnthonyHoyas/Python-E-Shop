@@ -2,11 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UFT8">
-    <title>La boutique de Toto</title>
+    <title>Toto's Shop</title>
 </head>
 <body>
+    <a href="{% url 'index' %}">
+    <h1>Toto's Shop</h1>
+    </a>
 
-    <h1>La boutique de Toto</h1>
+    {% if user.is_authenticated %}
+        {{ user.username }}
+        <a href="{% url 'logout' %}">Disconnect</a>
+    {% else %}
+        <a href="{% url 'login' %}">connexion</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+
+    {% if user.cart %}
+        <p>
+            <a href="{% url 'cart' %}">Show Cart({{ user.cart.orders.count }})</a>
+        </p>    
+    {% endif %}
+
 
 
 {% block content %}
